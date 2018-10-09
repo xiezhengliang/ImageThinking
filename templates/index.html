@@ -1,508 +1,694 @@
 <!DOCTYPE html>
 <html lang="zh">
 
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-		<title>imageThinking</title>
-		<link href="/static/css/bootstrap.css" type="text/css" media="screen" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" id="site-theme" href="/static/css/bootstrap-xadmin.css" />
-		<link href="/static/css/font-awesome.css" type="text/css" media="screen" rel="stylesheet" />
-		<link href="/static/css/xadmin.main.css" type="text/css" media="screen" rel="stylesheet" />
-		<link href="/static/css/xadmin.plugins.css" type="text/css" media="screen" rel="stylesheet" />
-		<link href="/static/css/xadmin.responsive.css" type="text/css" media="screen" rel="stylesheet" />
-		<link href="/static/css/xadmin.page.dashboard.css" type="text/css" media="screen" rel="stylesheet" />
-		<script type="text/javascript" src="/static/js/jquery.js"></script>
-		<script type="text/javascript" src="/static/js/echarts.common.min.js"></script>
-		<style type="text/css">
-			ul,li{
-				list-style:none;
-			}
-			a{
-				display: block;
-				text-decoration:none !important;
-			}
-			a:hover, a:focus{
-				color: #428bca;
-			}
-			.mian-width {
-				width: 1200px;
-				margin: 0 auto;
-			}
-			
-			.top-search-form {
-				margin-top: 14px;
-			}
-			
-			.btn-login {
-				border: 1px solid #fff;
-				margin-right: 18px;
-				padding: 5px 0 !important;
-				text-align: center;
-				color: #fff !important;
-				width: 80px;
-				font-size: 14px;
-				display: inline-block;
-				line-height: 1;
-				white-space: nowrap;
-				cursor: pointer;
-				border-color: #dcdfe6;
-				-webkit-appearance: none;
-				-webkit-box-sizing: border-box;
-				box-sizing: border-box;
-				outline: none;
-				-webkit-transition: .1s;
-				transition: .1s;
-				font-weight: 500;
-				-moz-user-select: none;
-				-webkit-user-select: none;
-				-ms-user-select: none;
-				border-radius: 4px;
-				margin-top: 14px;
-			}
-			.btn-login:hover{
-				background-color: #fff !important;
-				color: #525cdc !important;
-			}
-			.btn-register:hover{
-				background-color: #757de3 !important;
-				color: #fff !important;
-			}
-			.btn-register {
-				background-color: #525cdc;
-				border-color: #525cdc;
-			}
-			.auth-body-warp{
-				display: none;
-			}
-			.auth-body {
-				background-color: rgba(0, 0, 0, 0.8);
-				position: fixed;
-				top: 0;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				z-index: 1030;
-				display: flex;
-				align-items: center;
-			}
-			.body-middle {
-				width: 100%;
-				margin: 0 auto;
-			}
-			.body-middle form{
-				display: flex;
-				text-align: center;
-				align-items: center;
-			}
-			.top-img {
-				width: 100%;
-				text-align: center;
-				margin: 0 auto;
-			}
-			.panel-wrapper {
-				width: 100%;
-			}
-			.panel {
-				background-color: #fff;
-				width: 440px;
-				max-width: 100%;
-				border: 1px solid #eee;
-				border-radius: 10px;
-				z-index: 100;
-				padding: 30px 60px;
-				margin: 20px auto;
-			}
-			.body-content{
-				width: 1200px;
-				margin: 75px auto 0;
-			}
-			.grabble{
-				width: 100%;
-				overflow: hidden;
-			}
-			.grabble-left{
-				width: 80%;
-				float: left;
-				overflow: hidden;
-			}
-			.grabble .grabble-input{
-				width: 100%;
-				height: 40px;
-				padding: 0;
-				text-indent: 1em;
-			}
-			.grabble-rigth{
-				width: 20%;
-				float: left;
-			}
-			.grabble-button{
-				display: inline-block;
-				height: 40px;
-				width: 100%;
-				color:#fff;
-				padding: 0;
-				margin-left: 10px;
-				text-align: center;
-				line-height: 40px;
-				font-size: 16px;
-			}
-			.show-module{
-				width: 100%;
-				overflow: hidden;
-				margin-left: -50px;
-			}
-			.show-module li{
-				width: 19%;
-				float: left;
-				border: 1px solid #ccc;
-				font-size: 14px;
-				padding: 10px 0px;
-				margin-left: 10px;
-				margin-top: 20px;
-				text-align: center;
-				cursor:pointer;
-			}
-			.content-middle-ul{
-				width: 100%;
-				margin-left: -6.6%;
-			}
-			.content-middle-ul li{
-				float: left;
-				width: 30%;
-				border: 1px solid #ccc;
-				text-align: center;
-				margin-left: 3.3%;
-				padding: 10px;
-				cursor:pointer;
-			}
-			.margin-top0{
-				margin-top: 0;
-			}
-			.content-middle-ul li img{
-				width: 80%;
-				margin: 20px auto;
-			}
-			.li-titel,.li-details-titel{
-				font-weight: 600;
-				font-size: 20px;
-			}
-			.li-heat{
-				text-align: left;
-				text-indent: 10%;
-			}
-			.ul-warp{
-				display: none;
-			}
-			.ul-li-details{
-				background-color: rgba(0,0,0,0.8);
-				z-index: 1030;
-				position: fixed;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				display: flex;
-				align-items: center;
-			}
-			.ul-li-details ul{
-				width: 60%;
-				margin: 0 auto;				
-				background-color: #fff;
-				border-radius: 10px;
-			}
-			.ul-li-details ul li{
-				width: 100%;
-				padding: 20px 0px;
-				overflow: hidden;
-				margin-left: -1.8%;
-			}
-			.ul-li-details ul li .close{
-				float: right;
-				width: 30px;
-				height: 30px;
-			}
-			.li-details-titel{
-				text-align: center;
-				margin-top: 50px;
-			}
-			.li-details-img{
-				width: 100%;
-				margin: 20px auto;
-			}
-			.close-img{
-				float: right;
-				width: 30px;
-				height: 30px;
-				margin-right: -45px;
-				margin-top: -10px;
-			}
-		</style>
-	</head>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>imageThinking</title>
+    <link href="/static/css/bootstrap.css" type="text/css" media="screen" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" id="site-theme" href="/static/css/bootstrap-xadmin.css"/>
+    <link href="/static/css/font-awesome.css" type="text/css" media="screen" rel="stylesheet"/>
+    <link href="/static/css/xadmin.main.css" type="text/css" media="screen" rel="stylesheet"/>
+    <link href="/static/css/xadmin.plugins.css" type="text/css" media="screen" rel="stylesheet"/>
+    <link href="/static/css/xadmin.responsive.css" type="text/css" media="screen" rel="stylesheet"/>
+    <link href="/static/css/xadmin.page.dashboard.css" type="text/css" media="screen" rel="stylesheet"/>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/echarts.common.min.js"></script>
+    <style type="text/css">
+        ul, li {
+            list-style: none;
+        }
 
-	<body class="dashboard">
-		<div id="top-nav" class="navbar navbar-xs navbar-inverse navbar-fixed-top">
-			<div class="mian-width">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="index.html"><img src="/static/images/icon.png" style="margin-right: 5px" /></a>
-				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav pull-right">
-						<li class="dropdown g-theme">
-							<a class="btn-login" id="btnLogin">
-								登录
-							</a>
+        a {
+            display: block;
+            text-decoration: none !important;
+        }
 
-						</li>
-						<li class="dropdown g-theme">
-							<a class="btn-login btn-register" >
-								注册
-							</a>
+        a:hover, a:focus {
+            color: #428bca;
+        }
 
-						</li>
+        .mian-width {
+            width: 1200px;
+            margin: 0 auto;
+        }
 
-					</ul>
+        .top-search-form {
+            margin-top: 14px;
+        }
 
-					<!--<form method="get" class="top-search-form navbar-form navbar-left" id="g-search">
-						<div class="input-group">
-							<input name="_q_" class="form-control" type="text">
-							<span class="input-group-btn">
-						    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-						        <i class="fa fa-search"></i> 搜索 <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
+        .btn-login {
+            border: 1px solid #fff;
+            margin-right: 18px;
+            padding: 5px 0 !important;
+            text-align: center;
+            color: #fff !important;
+            width: 80px;
+            font-size: 14px;
+            display: inline-block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            border-color: #dcdfe6;
+            -webkit-appearance: none;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            outline: none;
+            -webkit-transition: .1s;
+            transition: .1s;
+            font-weight: 500;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            border-radius: 4px;
+            margin-top: 14px;
+        }
 
-								<li>
-									<a><i class="fa fa-search"></i> 搜索组</a>
-								</li>
+        .btn-login:hover {
+            background-color: #fff !important;
+            color: #525cdc !important;
+        }
 
-								<li>
-									<a><i class="fa fa-search"></i> 搜索用户信息</a>
-								</li>
+        .btn-register:hover {
+            background-color: #757de3 !important;
+            color: #fff !important;
+        }
 
-								<li>
-									<a><i class="fa fa-search"></i> 搜索新浪app</a>
-								</li>
+        .btn-register {
+            background-color: #525cdc;
+            border-color: #525cdc;
+        }
 
-								<li>
-									<a><i class="fa fa-search"></i> 搜索今日头条app</a>
-								</li>
+        .auth-body-warp {
+            display: none;
+        }
 
-								<li>
-									<a><i class="fa fa-search"></i> 搜索搜狐app</a>
-								</li>
+        .auth-body {
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            display: flex;
+            align-items: center;
+        }
 
-								<li>
-									<a><i class="fa fa-search"></i> 搜索账户分析</a>
-								</li>
+        .body-middle {
+            width: 100%;
+            margin: 0 auto;
+        }
 
-								<li>
-									<a><i class="fa fa-search"></i> 搜索日志记录</a>
-								</li>
+        .body-middle form {
+            display: flex;
+            text-align: center;
+            align-items: center;
+        }
 
-							</ul>
-							</span>
-						</div>
-					</form>-->
+        .top-img {
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+        }
 
-				</div>
-			</div>
-		</div>
+        .panel-wrapper {
+            width: 100%;
+        }
 
-		<!--<div id="footer">
-			<hr/>
-			<footer class="text-center">
-				<p>&copy; Copyright 2018,ImageThinking</p>
-			</footer>
-		</div>-->
-		<!--中间-->
-		<div class="body-content">
-			<div class="body-content-top">
-				<div class="grabble">
-					<div class="grabble-left">
-						<input type="text" Placeholder="输入你要找的东西" class="grabble-input"/>
-						
-					</div>
-					<div class="grabble-rigth">
-						<a class="grabble-button btn-register">搜索</a>
-					</div>
-					<ul class="show-module" id="showModule">
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							<li>
-								<a>第一模块</a>
-							</li>
-							
-						</ul>
-				</div>
-			</div>
-		</div>
-		<hr />
-		<div class="body-content margin-top0">
-			<div class="body-content-middle">
-				<ul class="content-middle-ul" id="list-ul">
-					<li>
-						<a href="/index_details">
-							<div class="li-titel">我是标题</div>
-							<img src="/static/images/logo.png"/>
-							<div class="li-heat">热度，点赞数</div>
-						</a>
-					</li>
-					<li>
-						<a href="index_details.html">
-							<div class="li-titel">我是标题</div>
-							<img src="/static/images/logo.png"/>
-							<div class="li-heat">热度，点赞数</div>
-						</a>
-					</li>
-					<li>
-						<a href="index_details.html">
-							<div class="li-titel">我是标题</div>
-							<img src="/static/images/logo.png"/>
-							<div class="li-heat">热度，点赞数</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="ul-warp">
-			<div class="ul-li-details">
-				<ul>
-					<li>
-						<img src="/static/images/colse2.png" class="close" id="liClose"/>
-						<div class="li-details-titel">我是标题</div>
-						<img src="/static/images/1.jpeg" class="li-details-img"/>
-						<div class="li-details-heat">热度，点赞数</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-		
-		<div class="auth-body-warp">
-			<div class="auth-body">
-				<div class="body-middle">
-					<form action="/login/" method="post" id="login-form">
-						<div class="panel panel-default panel-single" id="panel-login">
-							<img src="/static/images/colse2.png" class="close-img" id="login-close"/>
+        .panel {
+            background-color: #fff;
+            width: 440px;
+            max-width: 100%;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            z-index: 100;
+            padding: 30px 60px;
+            margin: 20px auto;
+        }
 
-							<div class="panel-heading">
-	
-								<p style="text-align: center;margin-top: 15px">
-									<img src="/static/images/logo.png" />
-								</p>
-	
-							</div>
-							<div class="panel-body">
-	
-								<div id="div_id_username" class="row">
-									<div class="controls clearfix">
-										<div class="input-group input-group-lg">
-											<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-											<input class="form-control input-lg" id="id_username" maxlength="254" name="username" type="text" placeholder="用户名">
-										</div>
-	
-									</div>
-								</div>
-	
-								<div id="div_id_password" class="row">
-									<div class="controls clearfix">
-										<div class="input-group input-group-lg">
-											<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-											<input class="form-control input-lg" id="id_password" name="password" type="password" placeholder="密码">
-										</div>
-	
-									</div>
-								</div>
-	
-								<input type="hidden" name="this_is_the_login_form" value="1" />
-								<input type="hidden" name="next" value="/admin/" />
-	
-								<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-	
-								<div class="text-info" style="margin-top:15px;">
-									<a href="javasrcipt:;"><i class="fa fa-question-sign"></i> 忘记了您的密码或用户名？</a>
-								</div>
-							</div>
-	
-						</div>
-                        {% csrf_token %} }
-					</form>
-				</div>
-			</div>
-		</div>
-		
-	</body>
-	<script type="text/javascript" src="/static/js/jquery.ui.core.js"></script>
-	<script type="text/javascript" src="/static/js/jquery.ui.widget.js"></script>
-	<script type="text/javascript" src="/static/js/jquery.ui.mouse.js"></script>
-	<script type="text/javascript" src="/static/js/jquery.ui.sortable.js"></script>
-	<script type="text/javascript" src="/static/js/bootstrap.js"></script>
-	<script type="text/javascript" src="/static/js/xadmin.main.js"></script>
-	<script type="text/javascript" src="/static/js/xadmin.responsive.js"></script>
-	<script type="text/javascript" src="/static/js/jquery.ui.effect.js"></script>
-	<script type="text/javascript" src="/static/js/xadmin.plugin.themes.js"></script>
-	<script type="text/javascript" src="/static/js/xadmin.page.dashboard.js"></script>
-	<script type="text/javascript" src="/static/js/xadmin.plugin.portal.js"></script>
-	<script type="text/javascript">
-		$(function(){
-			$("#btnLogin").click(function(){
-				$(".auth-body-warp").show();
-			})
-			
-			$("#login-close").click(function(){
-				$(".auth-body-warp").hide();
-			})
-			
+        .body-content {
+            width: 1200px;
+            margin: 75px auto 0;
+        }
+
+        .grabble {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .grabble-left {
+            width: 80%;
+            float: left;
+            overflow: hidden;
+        }
+
+        .grabble .grabble-input {
+            width: 100%;
+            height: 40px;
+            padding: 0;
+            text-indent: 1em;
+        }
+
+        .grabble-rigth {
+            width: 20%;
+            float: left;
+        }
+
+        .grabble-button {
+            display: inline-block;
+            height: 40px;
+            width: 100%;
+            color: #fff;
+            padding: 0;
+            margin-left: 10px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 16px;
+        }
+
+        .show-module {
+            width: 100%;
+            overflow: hidden;
+            margin-left: -50px;
+        }
+
+        .show-module li {
+            width: 19%;
+            float: left;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            padding: 10px 0px;
+            margin-left: 10px;
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .content-middle-ul {
+            width: 100%;
+            margin-left: -6.6%;
+        }
+
+        .content-middle-ul li {
+            float: left;
+            width: 30%;
+            border: 1px solid #ccc;
+            text-align: center;
+            margin-left: 3.3%;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .margin-top0 {
+            margin-top: 0;
+        }
+
+        .content-middle-ul li img {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .li-titel, .li-details-titel {
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .li-heat {
+            text-align: left;
+            text-indent: 10%;
+        }
+
+        .ul-warp {
+            display: none;
+        }
+
+        .ul-li-details {
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1030;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .ul-li-details ul {
+            width: 60%;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        .ul-li-details ul li {
+            width: 100%;
+            padding: 20px 0px;
+            overflow: hidden;
+            margin-left: -1.8%;
+        }
+
+        .ul-li-details ul li .close {
+            float: right;
+            width: 30px;
+            height: 30px;
+        }
+
+        .li-details-titel {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .li-details-img {
+            width: 100%;
+            margin: 20px auto;
+        }
+
+        .close-img {
+            float: right;
+            width: 30px;
+            height: 30px;
+            margin-right: -45px;
+            margin-top: -10px;
+        }
+
+        .user-information {
+            overflow: hidden;
+            margin: 10px auto 0;
+        }
+
+        .user-information img {
+            border-radius: 100%;
+        }
+
+        .user-color {
+            color: #fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="dashboard">
+<div id="top-nav" class="navbar navbar-xs navbar-inverse navbar-fixed-top">
+    <div class="mian-width">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html"><img src="/static/images/icon.png" style="margin-right: 5px"/></a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li class="dropdown g-theme">
+                    <a class="btn-login" id="btnLogin">
+                        登录
+                    </a>
+
+                </li>
+                <li class="dropdown g-theme">
+                    <a class="btn-login btn-register" id="btnRegister">
+                        注册
+                    </a>
+
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav pull-right" style="display: none;">
+                <li class="dropdown user-information">
+                    <img src="/static/images/icon.png"/>
+                    <div class="user-color">名称</div>
+                </li>
+            </ul>
+            <!--<div class="user-information">
+                <img src="/static/images/icon.png"/>
+            </div>-->
+            <!--<form method="get" class="top-search-form navbar-form navbar-left" id="g-search">
+                <div class="input-group">
+                    <input name="_q_" class="form-control" type="text">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-search"></i> 搜索 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+
+                        <li>
+                            <a><i class="fa fa-search"></i> 搜索组</a>
+                        </li>
+
+                        <li>
+                            <a><i class="fa fa-search"></i> 搜索用户信息</a>
+                        </li>
+
+                        <li>
+                            <a><i class="fa fa-search"></i> 搜索新浪app</a>
+                        </li>
+
+                        <li>
+                            <a><i class="fa fa-search"></i> 搜索今日头条app</a>
+                        </li>
+
+                        <li>
+                            <a><i class="fa fa-search"></i> 搜索搜狐app</a>
+                        </li>
+
+                        <li>
+                            <a><i class="fa fa-search"></i> 搜索账户分析</a>
+                        </li>
+
+                        <li>
+                            <a><i class="fa fa-search"></i> 搜索日志记录</a>
+                        </li>
+
+                    </ul>
+                    </span>
+                </div>
+            </form>-->
+
+        </div>
+    </div>
+</div>
+
+<!--<div id="footer">
+    <hr/>
+    <footer class="text-center">
+        <p>&copy; Copyright 2018,ImageThinking</p>
+    </footer>
+</div>-->
+<!--中间-->
+<div class="body-content">
+    <div class="body-content-top">
+        <div class="grabble">
+            <div class="grabble-left">
+                <input type="text" Placeholder="输入你要找的东西" class="grabble-input"/>
+
+            </div>
+            <div class="grabble-rigth">
+                <a class="grabble-button btn-register">搜索</a>
+            </div>
+            <ul class="show-module" id="showModule">
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+                <li>
+                    <a>第一模块</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="body-content margin-top0">
+    <div class="body-content-middle">
+        <ul class="content-middle-ul" id="list-ul">
+            <li>
+                <a href="index_details.html">
+                    <div class="li-titel">我是标题</div>
+                    <img src="/static/images/logo.png"/>
+                    <div class="li-heat">热度，点赞数</div>
+                </a>
+            </li>
+            <li>
+                <a href="index_details.html">
+                    <div class="li-titel">我是标题</div>
+                    <img src="/static/images/logo.png"/>
+                    <div class="li-heat">热度，点赞数</div>
+                </a>
+            </li>
+            <li>
+                <a href="index_details.html">
+                    <div class="li-titel">我是标题</div>
+                    <img src="/static/images/logo.png"/>
+                    <div class="li-heat">热度，点赞数</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="ul-warp">
+    <div class="ul-li-details">
+        <ul>
+            <li>
+                <img src="/static/images/colse2.png" class="close" id="liClose"/>
+                <div class="li-details-titel">我是标题</div>
+                <img src="/static/images/1.jpeg" class="li-details-img"/>
+                <div class="li-details-heat">热度，点赞数</div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="auth-body-warp">
+    <div class="auth-body">
+        <div class="body-middle">
+            <form action="" method="post" id="login-form">
+                <div class="panel panel-default panel-single" id="panel-login">
+                    <img src="/static/images/colse2.png" class="close-img" id="login-close"/>
+                    <input type='hidden' name='csrfmiddlewaretoken'
+                           value='agySyUF4evwylcfFpPLW10mZq9mxcXSHTFvhDWC8MFX4Jz5PstFnaspo1nskGfl0'/>
+
+                    <div class="panel-heading">
+
+                        <p style="text-align: center;margin-top: 15px">
+                            <img src="/static/images/logo.png"/>
+                        </p>
+
+                    </div>
+                    <div class="panel-body">
+
+                        <div id="div_id_username" class="row">
+                            <div class="controls clearfix">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input class="form-control input-lg" id="id_username" maxlength="254"
+                                           name="username" type="text" placeholder="用户名">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="div_id_password" class="row">
+                            <div class="controls clearfix">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                                    <input class="form-control input-lg" id="id_password" name="register_code"
+                                           type="number" placeholder="验证码">
+                                    <input type="text" value="获取验证码"
+                                           style="position: absolute;height: 43px;padding: 10px 0px;width: 90px;font-size: 14px;text-align: center;left: 198px;top:1px;cursor:pointer;"
+                                           readonly="" id="gainCode"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="this_is_the_login_form" value="1"/>
+                        <input type="hidden" name="next" value="/admin/"/>
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+
+                        <div class="text-info" style="margin-top:15px;">
+                            <a href="javasrcipt:;"><i class="fa fa-question-sign"></i> 忘记了您的密码或用户名？</a>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="auth-body-warp-register" style="display: none;">
+    <div class="auth-body">
+        <div class="body-middle">
+            <form action="" method="get" id="login-form">
+                <div class="panel panel-default panel-single" id="panel-login">
+                    <img src="/static/images/colse2.png" class="close-img" id="login-close-register"/>
+                    <div class="panel-heading">
+
+                        <p style="text-align: center;margin-top: 15px">
+                            <img src="/static/images/logo.png"/>
+                        </p>
+
+                    </div>
+                    <div class="panel-body">
+
+                        <div id="div_id_username" class="row">
+                            <div class="controls clearfix">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input class="form-control input-lg" maxlength="254" name="company_name" type="text"
+                                           placeholder="企业名称">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="controls clearfix">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input class="form-control input-lg" maxlength="254" name="principal" type="text"
+                                           placeholder="负责人">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="controls clearfix">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                                    <input class="form-control input-lg" maxlength="11" id="mobile" name="mobile"
+                                           type="text"
+                                           placeholder="手机号">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="div_id_password" class="row">
+                            <div class="controls clearfix">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
+                                    <input class="form-control input-lg" name="verification_code" type="number"
+                                           placeholder="验证码">
+                                    <input type="text" value="获取验证码"
+                                           style="position: absolute;height: 43px;padding: 10px 0px;width: 90px;font-size: 14px;text-align: center;left: 198px;top:1px;cursor:pointer;"
+                                           readonly="" id="zphone"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="this_is_the_login_form" value="1"/>
+                        <input type="hidden" name="next" value="/admin/"/>
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/static/js/jquery.ui.core.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.mouse.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.sortable.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.js"></script>
+<script type="text/javascript" src="/static/js/xadmin.main.js"></script>
+<script type="text/javascript" src="/static/js/xadmin.responsive.js"></script>
+<script type="text/javascript" src="/static/js/jquery.ui.effect.js"></script>
+<script type="text/javascript" src="/static/js/xadmin.plugin.themes.js"></script>
+<script type="text/javascript" src="/static/js/xadmin.page.dashboard.js"></script>
+<script type="text/javascript" src="/static/js/xadmin.plugin.portal.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnLogin").click(function () {
+            $(".auth-body-warp").show();
+        })
+
+        $("#login-close,#login-close-register").click(function () {
+            $(".auth-body-warp,.auth-body-warp-register").hide();
+        })
+
+        $("#btnRegister").click(function () {
+            $(".auth-body-warp-register").show();
+        })
 //			$("#liClose").click(function(){
 //				$(".ul-warp").hide();
 //			})
-//			
+//
 //			$("#list-ul li").click(function(){
 //				$(".ul-warp").show();
 //			})
-			
-			$("#showModule li").click(function(){
-				$(this).css({
-					border:"1px solid #428bca"
-				});
-			})
 
-			setInterval(lazyload,1000);
-		})
-		var listUl = $("#list-ul li");
-		function lazyload(){
-		    var scrollTop = window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
-		    var viewportSize = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-		    for(var i=0,len=listUl.length;i<len;i++){ var x = scrollTop + viewportSize - listUl[i].offsetTop; if(x>0){
-		            listUl[i].src = listUl[i].getAttribute("loadpic");
-		        }
-		    }
-		}
-	</script>
+        $("#showModule li").click(function () {
+            $(this).css({
+                border: "1px solid #428bca"
+            });
+        })
+
+        setInterval(lazyload, 1000);
+    })
+    var listUl = $("#list-ul li");
+
+    function lazyload() {
+        var scrollTop = window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        var viewportSize = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        for (var i = 0, len = listUl.length; i < len; i++) {
+            var x = scrollTop + viewportSize - listUl[i].offsetTop;
+            if (x > 0) {
+                listUl[i].src = listUl[i].getAttribute("loadpic");
+            }
+        }
+    }
+
+    var t1 = null;
+
+    function countdown(obj) {
+        var count = 60;
+        $(obj).css({background: '#fff'}).val(count.toString() + "秒").attr('disabled', 'disabled');
+
+        var doCount = function () {
+            if (--count < 1) {
+                var t2 = clearInterval(t1);
+                $(obj).css({background: '#fff'}).val('重新发送').removeAttr('disabled');
+            }
+            else {
+                $(obj).val(count.toString() + "秒");
+            }
+        };
+
+        t1 = setInterval(function () {
+            doCount();
+        }, 1000);
+
+    }
+
+    $("#gainCode").click(function () {
+        countdown($("#gainCode"));
+    })
+
+    $('#zphone').click(
+        function () {
+            var re = /^1[345678]\d{9}$/; //校验手机号
+            if (re.test($('#mobile').val())) {
+                //发送验证码
+                countdown($("#zphone"));
+                $.get('/user/send_message', {mobile: $('#mobile').val()}, function (msg) {
+                    alert(jQuery.trim(msg.msg));
+                    if (msg.msg == '提交成功') {
+                        countdown();
+                    }
+                });
+            }
+            else {
+                alert("请输入正确的手机号！")
+            }
+        })
+
+
+</script>
 </html>

@@ -11,19 +11,19 @@ class UserProfile(AbstractUser):
     #     ("female", u"女")
     # )
     # 昵称
-    nick_name = models.CharField(max_length=50, verbose_name=u"昵称", default="")
+    # nick_name = models.CharField(max_length=50, verbose_name=u"昵称", default="")
     # 生日，可以为空
-    birthday = models.DateField(verbose_name=u"生日", null=True, blank=True)
+    # birthday = models.DateField(verbose_name=u"生日", null=True, blank=True)
     # 性别 只能男或女，默认女
     # gender = models.CharField(
     #     max_length=6,
     #     verbose_name=u"性别",
     #     choices=GENDER_CHOICES,
     #     default="female")
-    # 地址
     address = models.CharField(max_length=100, verbose_name="地址", default="")
-    # 电话
-    mobile = models.CharField(max_length=11, null=True, blank=True)
+    company_name = models.CharField(max_length=100, verbose_name="企业名称", default="")
+    principal = models.CharField(max_length=10, verbose_name="负责人", default="")
+    mobile = models.CharField(max_length=11, null=True, verbose_name="手机号", blank=True)
     is_paying_user = models.BooleanField(default=False)
     # # 头像 默认使用default.png
     image = models.ImageField(
@@ -31,6 +31,7 @@ class UserProfile(AbstractUser):
         default=u"image/default.png",
         max_length=100
     )
+
 
     # meta信息，即后台栏目名
     class Meta:
