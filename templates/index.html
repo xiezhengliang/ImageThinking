@@ -464,18 +464,13 @@
 <div class="auth-body-warp">
     <div class="auth-body">
         <div class="body-middle">
-            <form action="" method="post" id="login-form">
+            <form action="/login/" method="post" id="login-form">
                 <div class="panel panel-default panel-single" id="panel-login">
                     <img src="/static/images/colse2.png" class="close-img" id="login-close"/>
-                    <input type='hidden' name='csrfmiddlewaretoken'
-                           value='agySyUF4evwylcfFpPLW10mZq9mxcXSHTFvhDWC8MFX4Jz5PstFnaspo1nskGfl0'/>
-
                     <div class="panel-heading">
-
                         <p style="text-align: center;margin-top: 15px">
                             <img src="/static/images/logo.png"/>
                         </p>
-
                     </div>
                     <div class="panel-body">
 
@@ -486,10 +481,8 @@
                                     <input class="form-control input-lg" id="id_username" maxlength="254"
                                            name="username" type="text" placeholder="用户名">
                                 </div>
-
                             </div>
                         </div>
-
                         <div id="div_id_password" class="row">
                             <div class="controls clearfix">
                                 <div class="input-group input-group-lg">
@@ -503,18 +496,14 @@
 
                             </div>
                         </div>
-
-                        <input type="hidden" name="this_is_the_login_form" value="1"/>
                         <input type="hidden" name="next" value="/admin/"/>
-
                         <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-
                         <div class="text-info" style="margin-top:15px;">
                             <a href="javasrcipt:;"><i class="fa fa-question-sign"></i> 忘记了您的密码或用户名？</a>
                         </div>
                     </div>
-
                 </div>
+                {% csrf_token %}
             </form>
         </div>
     </div>
@@ -522,33 +511,31 @@
 <div class="auth-body-warp-register" style="display: none;">
     <div class="auth-body">
         <div class="body-middle">
-            <form action="" method="get" id="login-form">
-                <div class="panel panel-default panel-single" id="panel-login">
+            <form action="/register/" method="post" id="register-form">
+                <div class="panel panel-default panel-single" id="panel-register">
                     <img src="/static/images/colse2.png" class="close-img" id="login-close-register"/>
                     <div class="panel-heading">
-
                         <p style="text-align: center;margin-top: 15px">
                             <img src="/static/images/logo.png"/>
                         </p>
-
                     </div>
                     <div class="panel-body">
-
                         <div id="div_id_username" class="row">
                             <div class="controls clearfix">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                                    <input class="form-control input-lg" maxlength="254" name="company_name" type="text"
+                                    <input class="form-control input-lg" maxlength="254" id="company_name"
+                                           name="company_name" type="text"
                                            placeholder="企业名称">
                                 </div>
-
                             </div>
                         </div>
                         <div class="row">
                             <div class="controls clearfix">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                                    <input class="form-control input-lg" maxlength="254" name="principal" type="text"
+                                    <input class="form-control input-lg" maxlength="254" id="principal" name="principal"
+                                           type="text"
                                            placeholder="负责人">
                                 </div>
 
@@ -569,24 +556,18 @@
                             <div class="controls clearfix">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-                                    <input class="form-control input-lg" name="verification_code" type="number"
+                                    <input class="form-control input-lg" id="verification_code" name="verification_code" type="number"
                                            placeholder="验证码">
                                     <input type="text" value="获取验证码"
                                            style="position: absolute;height: 43px;padding: 10px 0px;width: 90px;font-size: 14px;text-align: center;left: 198px;top:1px;cursor:pointer;"
                                            readonly="" id="zphone"/>
                                 </div>
-
                             </div>
                         </div>
-
-                        <input type="hidden" name="this_is_the_login_form" value="1"/>
-                        <input type="hidden" name="next" value="/admin/"/>
-
                         <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
-
                     </div>
-
                 </div>
+                {% csrf_token %}
             </form>
         </div>
     </div>
@@ -668,7 +649,24 @@
     }
 
     $("#gainCode").click(function () {
-        countdown($("#gainCode"));
+        var re = /^1[345678]\d{9}$/; //校验手机号
+            if (re.test($('#mobile').val())) {
+                //发送验证码
+                countdown($("#zphone"));
+                $.get('/user/send_message', {
+                    mobile: $('#mobile').val(),
+                    principal: $('#principal').val(),
+                    company_name: $('#company_name').val(),
+                    verification_code: $('#verification_code').val()
+                }, function (msg) {
+                    if (msg.msg == '提交成功') {
+                        countdown();
+                    }
+                });
+            }
+            else {
+                alert("请输入正确的手机号！")
+            }
     })
 
     $('#zphone').click(
@@ -677,8 +675,13 @@
             if (re.test($('#mobile').val())) {
                 //发送验证码
                 countdown($("#zphone"));
-                $.get('/user/send_message', {mobile: $('#mobile').val()}, function (msg) {
-                    alert(jQuery.trim(msg.msg));
+                $.get('/user/send_message', {
+                    mobile: $('#mobile').val(),
+                    principal: $('#principal').val(),
+                    company_name: $('#company_name').val(),
+                    verification_code: $('#verification_code').val()
+                }, function (msg) {
+                    alert(msg.detail)
                     if (msg.msg == '提交成功') {
                         countdown();
                     }
@@ -691,4 +694,5 @@
 
 
 </script>
+
 </html>

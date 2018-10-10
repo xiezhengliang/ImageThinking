@@ -18,7 +18,7 @@ from django.urls import path
 import xadmin
 from django.views.generic import TemplateView
 from django.conf.urls import url
-from users.views import login
+from users.views import login,register
 from users.views import send_message
 
 urlpatterns = [
@@ -26,6 +26,7 @@ urlpatterns = [
     url('^$', TemplateView.as_view(template_name="index.html"), name="index"),
     url('^index_details/$', TemplateView.as_view(template_name="index_details.html"), name="index_details"),
     url('^login/$', login),
+    url('^register/$', register),
     url('^user/send_message', send_message)
 
 ]
