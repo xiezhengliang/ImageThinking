@@ -318,62 +318,10 @@
                     <div class="user-color">名称</div>
                 </li>
             </ul>
-            <!--<div class="user-information">
-                <img src="/static/images/icon.png"/>
-            </div>-->
-            <!--<form method="get" class="top-search-form navbar-form navbar-left" id="g-search">
-                <div class="input-group">
-                    <input name="_q_" class="form-control" type="text">
-                    <span class="input-group-btn">
-                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-search"></i> 搜索 <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-
-                        <li>
-                            <a><i class="fa fa-search"></i> 搜索组</a>
-                        </li>
-
-                        <li>
-                            <a><i class="fa fa-search"></i> 搜索用户信息</a>
-                        </li>
-
-                        <li>
-                            <a><i class="fa fa-search"></i> 搜索新浪app</a>
-                        </li>
-
-                        <li>
-                            <a><i class="fa fa-search"></i> 搜索今日头条app</a>
-                        </li>
-
-                        <li>
-                            <a><i class="fa fa-search"></i> 搜索搜狐app</a>
-                        </li>
-
-                        <li>
-                            <a><i class="fa fa-search"></i> 搜索账户分析</a>
-                        </li>
-
-                        <li>
-                            <a><i class="fa fa-search"></i> 搜索日志记录</a>
-                        </li>
-
-                    </ul>
-                    </span>
-                </div>
-            </form>-->
-
         </div>
     </div>
 </div>
 
-<!--<div id="footer">
-    <hr/>
-    <footer class="text-center">
-        <p>&copy; Copyright 2018,ImageThinking</p>
-    </footer>
-</div>-->
-<!--中间-->
 <div class="body-content">
     <div class="body-content-top">
         <div class="grabble">
@@ -478,8 +426,8 @@
                             <div class="controls clearfix">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-                                    <input class="form-control input-lg" id="id_username" maxlength="254"
-                                           name="username" type="text" placeholder="用户名">
+                                    <input class="form-control input-lg" id="login_phone" maxlength="254"
+                                           name="username" type="text" placeholder="手机号">
                                 </div>
                             </div>
                         </div>
@@ -487,7 +435,7 @@
                             <div class="controls clearfix">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-                                    <input class="form-control input-lg" id="id_password" name="register_code"
+                                    <input class="form-control input-lg" id="login_code" name="register_code"
                                            type="number" placeholder="验证码">
                                     <input type="text" value="获取验证码"
                                            style="position: absolute;height: 43px;padding: 10px 0px;width: 90px;font-size: 14px;text-align: center;left: 198px;top:1px;cursor:pointer;"
@@ -556,7 +504,8 @@
                             <div class="controls clearfix">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-                                    <input class="form-control input-lg" id="verification_code" name="verification_code" type="number"
+                                    <input class="form-control input-lg" id="verification_code" name="verification_code"
+                                           type="number"
                                            placeholder="验证码">
                                     <input type="text" value="获取验证码"
                                            style="position: absolute;height: 43px;padding: 10px 0px;width: 90px;font-size: 14px;text-align: center;left: 198px;top:1px;cursor:pointer;"
@@ -650,23 +599,20 @@
 
     $("#gainCode").click(function () {
         var re = /^1[345678]\d{9}$/; //校验手机号
-            if (re.test($('#mobile').val())) {
-                //发送验证码
-                countdown($("#zphone"));
-                $.get('/user/send_message', {
-                    mobile: $('#mobile').val(),
-                    principal: $('#principal').val(),
-                    company_name: $('#company_name').val(),
-                    verification_code: $('#verification_code').val()
-                }, function (msg) {
-                    if (msg.msg == '提交成功') {
-                        countdown();
-                    }
-                });
-            }
-            else {
-                alert("请输入正确的手机号！")
-            }
+        if (re.test($('#login_phone').val())) {
+            //发送验证码
+            countdown($("#gainCode"));
+            $.get('/user/send_message', {
+                mobile: $('#login_phone').val(),
+            }, function (msg) {
+                if (msg.msg == '提交成功') {
+                    countdown();
+                }
+            });
+        }
+        else {
+            alert("请输入正确的手机号！")
+        }
     })
 
     $('#zphone').click(

@@ -28,7 +28,7 @@ SECRET_KEY = '%1r&za4y)vv)n^2_x*8c*8ku93_peg%0d9%dfaj57$pl%q=e0l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -132,4 +132,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+# 配置允许采用邮箱登陆 是一个元组 必须加上逗号
+AUTHENTICATION_BACKENDS = (
+    'users.views.MobileBackend',
+)
 
